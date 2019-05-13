@@ -1,0 +1,56 @@
+﻿@model MHalas.BoardGameManagement.Models.BoardGameViewModel
+
+@{
+    ViewBag.Title = MHalas.BGM.l10n.Resource.Delete;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>@MHalas.BGM.l10n.Resource.Deleting</h2>
+
+<h3>@MHalas.BGM.l10n.Resource.DeleteQuestionConfirmation</h3>
+<div>
+    <h4>@MHalas.BGM.l10n.Resource.BoardGame</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Author)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Author)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PlayerMinimalAge)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PlayerMinimalAge)
+        </dd>
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+    <div class="form-actions no-color">
+        <input type="submit" value="@MHalas.BGM.l10n.Resource.Delete" class="btn btn-default" /> |
+        @Html.ActionLink(MHalas.BGM.l10n.Resource.BackToList, "Index")
+    </div>
+    }
+</div>

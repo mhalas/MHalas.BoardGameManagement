@@ -1,0 +1,38 @@
+﻿@using MHalas.BGM.Base.Extensions
+@model IEnumerable<MHalas.BoardGameManagement.Models.BoardGameLogViewModel>
+
+<h4>@MHalas.BGM.l10n.Resource.Displays</h4>
+
+@if (Model != null && Model.Any())
+{
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Date)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SourceAsString)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Date)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SourceAsString)
+                </td>
+            </tr>
+        }
+
+    </table>
+}
+else
+{
+    <p>@MHalas.BGM.l10n.Resource.InfoNoDataToDisplay</p>
+}
+
+

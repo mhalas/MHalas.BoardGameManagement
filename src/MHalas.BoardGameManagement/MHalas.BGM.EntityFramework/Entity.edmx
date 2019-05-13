@@ -1,0 +1,144 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="BoardGameManagementModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="BoardGame">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Author" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="PlayerMinimalAge" Type="int" Nullable="false" />
+          <Property Name="IsDeleted" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="BoardGameLog">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BoardGameId" Type="int" Nullable="false" />
+          <Property Name="Date" Type="datetime" Nullable="false" />
+          <Property Name="Source" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_BoardGameBoardGameLog">
+          <End Role="BoardGame" Type="Self.BoardGame" Multiplicity="1" />
+          <End Role="BoardGameLog" Type="Self.BoardGameLog" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BoardGame">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="BoardGameLog">
+              <PropertyRef Name="BoardGameId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="BoardGameManagementModelStoreContainer">
+          <EntitySet Name="BoardGame" EntityType="Self.BoardGame" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BoardGameLog" EntityType="Self.BoardGameLog" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_BoardGameBoardGameLog" Association="Self.FK_BoardGameBoardGameLog">
+            <End Role="BoardGame" EntitySet="BoardGame" />
+            <End Role="BoardGameLog" EntitySet="BoardGameLog" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="BoardGameManagementModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="BoardGameManagementEntities" annotation:LazyLoadingEnabled="true" >
+          <EntitySet Name="BoardGame" EntityType="BoardGameManagementModel.BoardGame" />
+          <EntitySet Name="BoardGameLog" EntityType="BoardGameManagementModel.BoardGameLog" />
+          <AssociationSet Name="BoardGameBoardGameLog" Association="BoardGameManagementModel.BoardGameBoardGameLog">
+            <End Role="BoardGame" EntitySet="BoardGame" />
+            <End Role="BoardGameLog" EntitySet="BoardGameLog" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="BoardGame">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="BoardGameLog" Relationship="BoardGameManagementModel.BoardGameBoardGameLog" FromRole="BoardGame" ToRole="BoardGameLog" />
+          <Property Name="Author" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="PlayerMinimalAge" Type="Int32" Nullable="false" />
+          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="BoardGameLog">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="BoardGame" Relationship="BoardGameManagementModel.BoardGameBoardGameLog" FromRole="BoardGameLog" ToRole="BoardGame" />
+          <Property Name="BoardGameId" Type="Int32" Nullable="false" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Source" Type="Int32" Nullable="false" />
+        </EntityType>
+        <Association Name="BoardGameBoardGameLog">
+          <End Type="BoardGameManagementModel.BoardGame" Role="BoardGame" Multiplicity="1" />
+          <End Type="BoardGameManagementModel.BoardGameLog" Role="BoardGameLog" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BoardGame">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="BoardGameLog">
+              <PropertyRef Name="BoardGameId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="BoardGameManagementModelStoreContainer" CdmEntityContainer="BoardGameManagementEntities">
+    <EntitySetMapping Name="BoardGame">
+      <EntityTypeMapping TypeName="IsTypeOf(BoardGameManagementModel.BoardGame)">
+        <MappingFragment StoreEntitySet="BoardGame">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Author" ColumnName="Author" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="PlayerMinimalAge" ColumnName="PlayerMinimalAge" />
+          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="BoardGameLog">
+      <EntityTypeMapping TypeName="IsTypeOf(BoardGameManagementModel.BoardGameLog)">
+        <MappingFragment StoreEntitySet="BoardGameLog">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="BoardGameId" ColumnName="BoardGameId" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
+          <ScalarProperty Name="Source" ColumnName="Source" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

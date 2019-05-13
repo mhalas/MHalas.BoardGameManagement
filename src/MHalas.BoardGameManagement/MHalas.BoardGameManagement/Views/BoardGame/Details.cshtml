@@ -1,0 +1,53 @@
+﻿@model MHalas.BoardGameManagement.Models.BoardGameViewModel
+
+@{
+    ViewBag.Title = MHalas.BGM.l10n.Resource.Details;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+    <h2>@MHalas.BGM.l10n.Resource.Details</h2>
+
+<div>
+    <h4>@MHalas.BGM.l10n.Resource.BoardGame</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Author)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Author)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PlayerMinimalAge)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PlayerMinimalAge)
+        </dd>
+    </dl>
+</div>
+<div>
+    @Html.Partial("BoardGameLog/List", Model.BoardGameLogs)
+</div>
+<p>
+    @Html.ActionLink(MHalas.BGM.l10n.Resource.Edit, "Edit", new { id = Model.Id }) |
+    @Html.ActionLink(MHalas.BGM.l10n.Resource.BackToList, "Index")
+</p>
